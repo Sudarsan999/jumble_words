@@ -138,7 +138,7 @@ def start_main_page():
     main_window.title("Jumbled Words Quiz") #game title
     main_window.configure(background="#e6fff5") #background colour of the game
 
-    img0 = PhotoImage(file="logo1.png") #game logo image
+    img0 = PhotoImage(file="logo1.png") #game logo imagegdsg
     img1 = PhotoImage(file="back.png") #game back button image
 
 #widgets of tkinter are label , button ...etc
@@ -157,7 +157,7 @@ def start_main_page():
         fg="#000000", #foreground 
         bg="green", #background
         font=("", 13), # 1st argument font style  2nd Parameter font size
-        cursor="spider", #mouse cursor shape
+        cursor="circle", #mouse cursor shape
         command=show_option,  #function calling
     )
     start_btn.pack(pady=(50, 20)) #pady is on y axis i.e top and bottom . 2. Padx is x-axis left and right

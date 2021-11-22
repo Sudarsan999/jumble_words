@@ -12,13 +12,13 @@
 import mysql.connector as mysql
 
 ## connecting to the database using 'connect()' method
-## it takes 3 required parameters 'host', 'user', 'passwd'
+## it takes following parameters host,user,password,database
 import mysql.connector
 
 
 myDB=mysql.connector.connect(
-    		user='administrator',
-    		password='password',
+    		user='root',
+    		password='password@123',
     		host='localhost',
     		database='jumblewords'
 	)
@@ -29,11 +29,6 @@ points=""
 uname=""
 #query = "create table scores (score_id INT NOT NULL AUTO_INCREMENT, username VARCHAR(200), points INT , scoredate DATE, PRIMARY KEY (score_id))"
 
-
-def connectdb():
-	
-	
-	return myDB
 	
 def updatescore(uname,points):
 	#query="drop table scores"

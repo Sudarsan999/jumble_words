@@ -4,21 +4,17 @@ from tkinter import messagebox
 import time
 import Database
 
-ANIMALS_WORD = ['DRBI', 'DGO', 'OENDYK', 'GFRIEFA', 'GLOILARTA', 'TAC', 'EHSOR', 'OLIN', 'MYOEKN', 'EEB', 'KDUC',
+WORDS = ['DRBI', 'DGO', 'OENDYK', 'GFRIEFA', 'GLOILARTA', 'TAC', 'EHSOR', 'OLIN', 'MYOEKN', 'EEB', 'KDUC',
                 'RGFO', 'TPNLEHEA', 'ORCDCIELO', 'POLNIHD', 'LARLIGO', 'EMSUO', 'EGTRI', 'ABRITB', 'ATR', ]
 
-ANIMALS_ANSWER = ['BIRD', 'DOG', 'DONKEY', 'GIRAFFE', 'ALLIGATOR', 'CAT', 'HORSE', 'LION', 'MONKEY', 'BEE', 'DUCK',
+ANSWERS = ['BIRD', 'DOG', 'DONKEY', 'GIRAFFE', 'ALLIGATOR', 'CAT', 'HORSE', 'LION', 'MONKEY', 'BEE', 'DUCK',
                   'FROG', 'ELEPHANT', 'CROCODILE', 'DOLPHIN', 'GORILLA', 'MOUSE', 'TIGER', 'RABBIT', 'RAT', ]
-
-ran_num = randrange(0, (len(ANIMALS_WORD)))
-jumbled_rand_word = ANIMALS_WORD[ran_num]
-
-points = 0
-flag=0
 
 def main():
     def end_game():
+    	global points,flag
     	Database.updatescore('abc',points)
+    	score
     	lab_img1.destroy()
     	word.destroy()
     	get_input.destroy()
@@ -38,6 +34,8 @@ def main():
     	fscore.pack(anchor="n",pady=(50, 20))
     	Database.show_score()
     	fscore['text']="Your Score is: "+str(Database.score)
+    	flag=0
+    	points=0
     	start_btn1 = Button(
         	text="Restart", #buttom text
         	width=18, #buttom width
@@ -49,39 +47,40 @@ def main():
         	command=back,  #function calling
     	)
     	start_btn1.pack(pady=(50, 20))
+    	
      	
     def back():
-        my_window.destroy()
-        Database.updatescore('abc',points)
-        import main_start
-        main_start.start_main_page()
+    	global points
+    	my_window.destroy()
+    	import main_start
+    	main_start.start_main_page()
 
     def change():
         global ran_num,flag
-        ran_num = randrange(0, (len(ANIMALS_WORD)))
-        word.configure(text=ANIMALS_WORD[ran_num])
+        ran_num = randrange(0, (len(WORDS)))
+        word.configure(text=WORDS[ran_num])
         get_input.delete(0, END)
         ans_lab.configure(text="")
         ans_lab1.configure(text="")
         flag=flag+1
-        if flag > 2:
+        if flag > 9:
         	flag=0
         	end_game()
 
     def cheak():
         global points, ran_num,flag #globally decalring variables
         user_word = get_input.get().upper()
-        if user_word == ANIMALS_ANSWER[ran_num]:
+        if user_word == ANSWERS[ran_num]:
             points += 5
             score.configure(text="Score:- " + str(points))
             messagebox.showinfo('correct', "Correct Answer.. Keep it Up!")
-            ran_num = randrange(0, (len(ANIMALS_WORD)))
-            word.configure(text=ANIMALS_WORD[ran_num])
+            ran_num = randrange(0, (len(WORDS)))
+            word.configure(text=WORDS[ran_num])
             get_input.delete(0, END)
             ans_lab.configure(text="")
             ans_lab1.configure(text="")
             flag=flag+1
-            if flag > 2:
+            if flag > 9:
             	flag=0
             	end_game()
             	
@@ -89,7 +88,7 @@ def main():
             messagebox.showerror("Error", "Inorrect Answer..Try your best!")
             get_input.delete(0, END)
             flag=flag+1
-            if flag > 2:
+            if flag > 9:
             	end_game()
 
     def show_answer():
@@ -98,9 +97,9 @@ def main():
             points -= 5
             score.configure(text="Score:- " + str(points))
             time.sleep(0.5)
-            txt=ANIMALS_ANSWER[ran_num]
-            ran_num = randrange(0, (len(ANIMALS_WORD)))
-            word.configure(text=ANIMALS_WORD[ran_num])
+            txt=ANSWERS[ran_num]
+            ran_num = randrange(0, (len(WORDS)))
+            word.configure(text=WORDS[ran_num])
             get_input.delete(0, END)
             ans_lab.configure(text=txt)
             ans_lab1.configure(text="Previous Question Answer")
@@ -116,6 +115,13 @@ def main():
     my_window.title("Jumbled Words Quiz")
     my_window.configure(background="#e6fff5")
     img1 = PhotoImage(file="back.png")
+    
+    global ran_num,jumbled_rand_word,flag,points
+    flag=0
+    points=0
+    ran_num = randrange(0, (len(WORDS)))
+    jumbled_rand_word = WORDS[ran_num]
+
 
     lab_img1 = Button(
         my_window,
